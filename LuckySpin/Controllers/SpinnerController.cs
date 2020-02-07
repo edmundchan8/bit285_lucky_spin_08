@@ -86,6 +86,7 @@ namespace LuckySpin.Controllers
             //** Adds the Spin to the Database Context
             //TODO: Modify the next line to use the player's Spins collection instead
             player.Spins.Add(spin);
+            _dbc.Add(spin);
             //**** Saves all the changes to the Database at once
             _dbc.SaveChanges();
 
@@ -101,10 +102,10 @@ namespace LuckySpin.Controllers
             //Gets the Player belonging to the given id
             //TODO: Modify the code to use the SingleOrDefault Lamda Extension method
             //TODO: Then Include the Players Spins collection
-            Player player = _dbc.Players.Find(id);
+            Player player = _dbc.Players.Include(p => p.Spins).SingleOrDefault(p => p.Id == id);
             //Gets the list of Spins from the Context
             //TODO: Modify the next line to get the list of the player's Spins instead of all the Spins
-            IEnumerable<Spin> spins = _dbc.Spins;
+            IEnumerable<Spin> spins = player.Spins;
             // Hack in some detail about the player
             ViewBag.Player = player;
 

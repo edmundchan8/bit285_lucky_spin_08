@@ -18,4 +18,4 @@ namespace LuckySpin.Models
         //TODO: Add a Navigation Property representing the Player's Spins
         public ICollection<Spin> Spins { get; set; }
     }
-}
+}   
